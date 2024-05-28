@@ -29,5 +29,6 @@
         </c:forEach>
     </table>
     <a href="${pageContext.request.contextPath}/admin/products">Manage Products</a>
+    <a href="${pageContext.request.contextPath}/admin/customers">Manage Customers</a>
 </body>
 </html>
