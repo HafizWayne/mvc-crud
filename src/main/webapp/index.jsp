@@ -7,7 +7,6 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: url('your-background-image.jpg') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -59,7 +58,7 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             if (email === 'test@gmail.com' && password === '12345678') {
-                window.location.href = '/transactions';
+                window.location.href = '${pageContext.request.contextPath}/transactions';
             } else {
                 alert('Invalid email or password');
             }
