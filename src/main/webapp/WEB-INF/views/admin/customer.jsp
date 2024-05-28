@@ -29,7 +29,7 @@
                     <td>${product.price}</td>
                     <td>${product.quantity}</td>
                     <td>
-                        <form method="post" action="/admin/customers/buy">
+                        <form method="post" action="${pageContext.request.contextPath}/admin/customers/buy">
                             <input type="hidden" name="customerId" value="${customer.id}">
                             <input type="hidden" name="productId" value="${product.id}">
                             <input type="number" name="quantity" value="1" min="1" max="${product.quantity}">

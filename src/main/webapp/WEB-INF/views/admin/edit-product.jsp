@@ -9,8 +9,10 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript">
         function formatPrice(input) {
-            let value = input.value.replace(/\./g, '');
-            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            let value = input.value.replace(/\./g, '').replace(/[^0-9]/g, '');
+            if (value !== "") {
+                value = parseInt(value, 10).toLocaleString('en-US');
+            }
             input.value = value;
         }
 
