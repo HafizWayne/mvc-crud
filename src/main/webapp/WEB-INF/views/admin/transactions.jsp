@@ -25,6 +25,7 @@
                     <a href="transactions/edit/${transaction.id}">Edit</a>
                     <a href="transactions/delete/${transaction.id}">Delete</a>
                 </td>
+
             </tr>
         </c:forEach>
     </table>

@@ -1,37 +1,44 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Customer Details</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Customer Details</h2>
-        <p><strong>ID:</strong> ${customer.id}</p>
-        <p><strong>Name:</strong> ${customer.name}</p>
-        <p><strong>Balance:</strong> ${customer.balance}</p>
+    <h1>Customer Details</h1>
+    <p>ID: ${customer.id}</p>
+    <p>Name: ${customer.name}</p>
+    <p>Balance: ${customer.balance}</p>
 
-        <h3>Buy Product</h3>
-        <form:form method="post" action="${pageContext.request.contextPath}/customers/buy">
-            <div class="form-group">
-                <label for="productId">Product:</label>
-                <form:select path="productId" id="productId" cssClass="form-control">
-                    <form:options items="${products}" itemValue="id" itemLabel="name"/>
-                </form:select>
-            </div>
-            <div class="form-group">
-                <label for="quantity">Quantity:</label>
-                <form:input path="quantity" id="quantity" cssClass="form-control"/>
-            </div>
-            <input type="hidden" name="customerId" value="${customer.id}" />
-            <button type="submit" class="btn btn-primary">Buy</button>
-        </form:form>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <h2>Products</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity Available</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${products}" var="product">
+                <tr>
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>${product.price}</td>
+                    <td>${product.quantity}</td>
+                    <td>
+                        <form method="post" action="/admin/customers/buy">
+                            <input type="hidden" name="customerId" value="${customer.id}">
+                            <input type="hidden" name="productId" value="${product.id}">
+                            <input type="number" name="quantity" value="1" min="1" max="${product.quantity}">
+                            <input type="submit" value="Buy">
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
 </body>
 </html>

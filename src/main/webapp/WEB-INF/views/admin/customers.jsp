@@ -25,7 +25,7 @@
                         <td>${customer.name}</td>
                         <td>${customer.balance}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/customers/${customer.id}" class="btn btn-sm btn-primary">View</a>
+                            <a href="${pageContext.request.contextPath}/admin/customers/${customer.id}" class="btn btn-sm btn-primary">View</a>
                         </td>
                     </tr>
                 </c:forEach>
