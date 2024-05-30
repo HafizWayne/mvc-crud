@@ -3,17 +3,8 @@ package com.example.model;
 public class Customer {
     private int id;
     private String name;
-
     private String email;
     private double balance;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     // Getters and Setters
     public int getId() {
@@ -30,6 +21,14 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public double getBalance() {

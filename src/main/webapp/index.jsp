@@ -1,68 +1,170 @@
-<!-- src/main/resources/templates/login.html -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CRUD Operations - Login</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Reset some basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            background: #f3f4f6;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
         }
-        .container {
-            padding: 20px;
-        }
-        .login-box {
+
+        .login-container {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            padding: 50px;
             max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            text-align: center;
         }
-        .login-header {
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            margin: 0;
+            color: #333333;
+        }
+
+        .admin-button {
+            background-color: transparent;
+            border: none;
+            color: #00aaff;
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .admin-button:hover {
+            color: #0088cc;
+        }
+
+        .form-group {
             margin-bottom: 20px;
-            font-size: 2em;
-            font-weight: bold;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00aaff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px; /* Added margin to separate buttons */
+        }
+
+        button:hover {
+            background-color: #0088cc;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .signup-link a {
+            color: #00aaff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: #0088cc;
+        }
+
+        .login-container .google-login {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .login-container .google-login img {
+            margin-right: 10px;
+        }
+
+        .login-container .google-login span {
+            color: #555555;
+            font-size: 16px;
+        }
+
+        .additional-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .additional-links a {
+            color: #00aaff;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="login-box">
-            <h1 class="login-header text-center">CRUD OPERATIONS</h1>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">SIGN IN</button>
-            </form>
-            <div class="text-center mt-3">
-                <a href="#" class="reset">Forgot your password? Reset Password</a>
+    <div class="login-container">
+        <div class="header">
+            <h2>Masuk</h2>
+           <a href="/springmvc-crud/Admin">Admin</a>
+        </div>
+        <form class="login-form" action="/springmvc-crud/login" method="post">
+            <div class="form-group">
+                <label for="username">Email</label>
+                <input type="text" id="username" name="username" required>
             </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Masuk</button>
+            <div class="additional-links">
+                <a href="#">Lupa Kata Sandi?</a>
+            </div>
+        </form>
+        <div class="google-login">
+            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" width="20">
+            <span>Google</span>
+        </div>
+        <div class="signup-link">
+            Belum punya akun ? <a href="/springmvc-crud/register">Daftar</a>
         </div>
     </div>
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            if (email === 'test@gmail.com' && password === '12345678') {
-                window.location.href = '${pageContext.request.contextPath}/transactions';
-            } else {
-                alert('Invalid email or password');
-            }
-        });
-    </script>
 </body>
 </html>
