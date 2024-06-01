@@ -24,15 +24,20 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String registerCustomer(@ModelAttribute("customer") Customer customer, Model model) {
+    public String registerCustomer(@ModelAttribute Customer customer, Model model) {
         String errorMessage = validateCustomer(customer);
         if (errorMessage != null) {
             model.addAttribute("errorMessage", errorMessage);
             return "register";
         }
-        customerRepository.save(customer);
-        model.addAttribute("message", "Customer registered successfully!");
-        return "success";
+
+        try {
+            customerRepository.registerCustomer(customer);
+            model.addAttribute("successMessage", "Registration successful!");
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "An error occurred while registering the customer.");
+        }
+        return "register";
     }
 
     private String validateCustomer(Customer customer) {
@@ -42,8 +47,8 @@ public class RegistrationController {
         if (customer.getEmail() == null || customer.getEmail().isEmpty() || !customer.getEmail().contains("@")) {
             return "Please provide a valid email";
         }
-        if (customer.getBalance() < 0) {
-            return "Balance must be positive";
+        if (customer.getPassword() == null || customer.getPassword().length() < 8 || customer.getPassword().length() > 12) {
+            return "Password must be between 8 and 12 characters";
         }
         return null;
     }

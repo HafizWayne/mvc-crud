@@ -102,4 +102,25 @@ public class CustomerRepository {
             e.printStackTrace();
         }
     }
+
+    public void registerCustomer(Customer customer) {
+        String sql = "INSERT INTO customers (name, email, password) VALUES (?, ?, ?)";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, customer.getName());
+            statement.setString(2, customer.getEmail());
+            statement.setString(3, customer.getPassword());
+            statement.executeUpdate();
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    customer.setId(generatedKeys.getInt(1));
+                } else {
+                    throw new SQLException("Gagal mengambil ID yang di-generate.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
