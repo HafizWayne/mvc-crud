@@ -136,15 +136,20 @@
             color: #00aaff;
             text-decoration: none;
         }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
         <div class="header">
             <h2>Masuk</h2>
-           <a href="/springmvc-crud/Admin">Admin</a>
+           <a href="/springmvc-crud/admin">Admin</a>
         </div>
-        <form class="login-form" action="/springmvc-crud/login" method="post">
+        <form class="login-form" action="/springmvc-crud/transactions" method="post">
             <div class="form-group">
                 <label for="username">Email</label>
                 <input type="text" id="username" name="username" required>
@@ -157,6 +162,8 @@
             <div class="additional-links">
                 <a href="#">Lupa Kata Sandi?</a>
             </div>
+            <!-- Menampilkan pesan error jika ada -->
+            <div th:if="${error}" class="error-message" th:text="${error}"></div>
         </form>
         <div class="google-login">
             <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" width="20">

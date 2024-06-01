@@ -123,4 +123,28 @@ public class CustomerRepository {
             e.printStackTrace();
         }
     }
+
+    public Customer findByEmailAndPassword(String email, String password) {
+        String sql = "SELECT * FROM customers WHERE email = ? AND password = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, email);
+            statement.setString(2, password);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Customer customer = new Customer();
+                    customer.setId(resultSet.getInt("id"));
+                    customer.setName(resultSet.getString("name"));
+                    customer.setEmail(resultSet.getString("email"));
+                    customer.setPassword(resultSet.getString("password"));
+                    customer.setBalance(resultSet.getDouble("balance"));
+                    return customer;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
