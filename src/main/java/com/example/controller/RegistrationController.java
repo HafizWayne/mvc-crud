@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/register")
+@RequestMapping("/customer/register")
 public class RegistrationController {
 
     @Autowired
@@ -20,7 +20,7 @@ public class RegistrationController {
     @GetMapping
     public String showRegistrationForm(Model model) {
         model.addAttribute("customer", new Customer());
-        return "register";
+        return "/customer/register";
     }
 
     @PostMapping
@@ -28,7 +28,7 @@ public class RegistrationController {
         String errorMessage = validateCustomer(customer);
         if (errorMessage != null) {
             model.addAttribute("errorMessage", errorMessage);
-            return "register";
+            return "/customer/register";
         }
 
         try {
@@ -37,7 +37,7 @@ public class RegistrationController {
         } catch (Exception e) {
             model.addAttribute("errorMessage", "An error occurred while registering the customer.");
         }
-        return "register";
+        return "/customer/register";
     }
 
     private String validateCustomer(Customer customer) {

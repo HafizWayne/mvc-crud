@@ -1,6 +1,7 @@
 package com.example.repository;
 
 import com.example.model.Customer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class CustomerRepository {
 
     private DataSource dataSource;
+
 
     @Autowired
     public CustomerRepository(DataSource dataSource) {
@@ -104,21 +106,16 @@ public class CustomerRepository {
     }
 
     public void registerCustomer(Customer customer) {
-        String sql = "INSERT INTO customers (name, email, password) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO customers (name, email, password, balance) VALUES (?, ?, ?, ?)";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getEmail());
             statement.setString(3, customer.getPassword());
+            statement.setDouble(4, customer.getBalance()); // Set balance value
+
             statement.executeUpdate();
 
-            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    customer.setId(generatedKeys.getInt(1));
-                } else {
-                    throw new SQLException("Gagal mengambil ID yang di-generate.");
-                }
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

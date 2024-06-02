@@ -142,7 +142,7 @@
     <div class="login-container">
         <div class="header">
             <h2>Masuk</h2>
-           <a href="/springmvc-crud/admin/transactions">Admin</a>
+           <a href="/springmvc-crud/login">Admin</a>
         </div>
         <form class="login-form" action="/springmvc-crud/login" method="post">
             <div class="form-group">
@@ -163,7 +163,7 @@
             <span>Google</span>
         </div>
         <div class="signup-link">
-            Belum punya akun ? <a href="/springmvc-crud/customer/register">Daftar</a>
+            Belum punya akun ? <a href="/springmvc-crud/register">Daftar</a>
         </div>
     </div>
 </body>

@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/transactions")
+@RequestMapping("/admin/transactions")
 public class TransactionController {
 
     @Autowired
