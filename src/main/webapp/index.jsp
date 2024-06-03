@@ -143,7 +143,7 @@
     <div class="login-container">
         <div class="header">
             <h2>Masuk</h2>
-           <a href="/springmvc-crud/admin/transactions" class="admin-button">Admin</a>
+           <a href="/springmvc-crud/admin" class="admin-button">Admin</a>
         </div>
         <form class="login-form" action="/springmvc-crud/customer/login" method="post">
             <div class="form-group">

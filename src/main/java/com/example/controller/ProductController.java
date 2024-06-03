@@ -8,20 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/products")
 public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
 
     @GetMapping
-    public String showAdminPage(Model model) {
-        // Menambahkan atribut model jika perlu
-        model.addAttribute("adminData", new Object());
-        return "admin"; // Pastikan ada file view 'admin.html'
-    }
-
-    @GetMapping("/products")
     public String listProducts(Model model) {
         model.addAttribute("products", productRepository.findAll());
         return "admin/products";
