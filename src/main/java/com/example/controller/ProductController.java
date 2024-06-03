@@ -20,32 +20,32 @@ public class ProductController {
         return "admin/products";
     }
 
-    @GetMapping("/products/new")
+    @GetMapping("/new")
     public String newProductForm(Model model) {
         model.addAttribute("product", new Product());
         return "admin/new-product";
     }
 
-    @PostMapping("/products")
+    @PostMapping
     public String saveProduct(@ModelAttribute Product product) {
         productRepository.save(product);
         return "redirect:/admin/products";
     }
 
-    @GetMapping("/products/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String editProductForm(@PathVariable int id, Model model) {
         model.addAttribute("product", productRepository.findById(id));
         return "admin/edit-product";
     }
 
-    @PostMapping("/products/update/{id}")
+    @PostMapping("/update/{id}")
     public String updateProduct(@PathVariable int id, @ModelAttribute Product product) {
         product.setId(id); // Set ID dari path variable ke objek Product
         productRepository.update(product);
         return "redirect:/admin/products";
     }
 
-    @GetMapping("/products/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable int id) {
         productRepository.delete(id);
         return "redirect:/admin/products";
