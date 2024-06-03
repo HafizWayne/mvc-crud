@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/customer/login")
 public class LoginController {
@@ -21,18 +23,13 @@ public class LoginController {
     }
 
     @PostMapping
-    public String login(@RequestParam String email, @RequestParam String password, Model model) {
+    public String login(@RequestParam String email, @RequestParam String password,  Model model, HttpSession session) {
         Customer customer = customerRepository.findByEmailAndPassword(email, password);
         if (customer != null) {
-            // Login berhasil, arahkan ke halaman utama atau halaman lain yang sesuai
-            // Misalnya:
-            // return "redirect:/home";
-            model.addAttribute("message", "Login berhasil!");
-            return "redirect:/admin/customers";
+            session.setAttribute("customer", customer);
+            return "redirect:/customer/home";
         } else {
-            // Login gagal, arahkan kembali ke halaman login dengan pesan kesalahan
             model.addAttribute("error", "Email atau kata sandi salah!");
-            // Kembalikan halaman login dengan pesan kesalahan
             return "customer/login";
         }
     }

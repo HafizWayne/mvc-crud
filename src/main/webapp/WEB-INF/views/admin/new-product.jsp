@@ -7,26 +7,6 @@
     <meta charset="UTF-8">
     <title>Edit Product</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript">
-        function formatPrice(input) {
-            let value = input.value.replace(/\./g, '');
-            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            input.value = value;
-        }
-
-        function validateForm() {
-            let priceInput = document.getElementById("price");
-            priceInput.value = priceInput.value.replace(/\./g, '');
-            return true;
-        }
-
-        window.onload = function() {
-            let priceInput = document.getElementById("price");
-            if (priceInput) {
-                formatPrice(priceInput);
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="container mt-5">
@@ -38,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label for="price">Price:</label>
-                <input type="text" id="price" name="price" class="form-control" value="${product.price}" oninput="formatPrice(this)" />
+                <input type="text" id="price" name="price" class="form-control" value="${product.price}" />
             </div>
             <div class="form-group">
                 <label for="quantity">Quantity:</label>

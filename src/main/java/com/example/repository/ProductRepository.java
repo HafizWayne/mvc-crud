@@ -28,7 +28,7 @@ public class ProductRepository {
                 Product product = new Product();
                 product.setId(resultSet.getInt("id"));
                 product.setName(resultSet.getString("name"));
-                product.setPrice(resultSet.getDouble("price"));
+                product.setPrice(resultSet.getFloat("price"));
                 product.setQuantity(resultSet.getInt("quantity"));
                 products.add(product);
             }
@@ -48,7 +48,7 @@ public class ProductRepository {
                     Product product = new Product();
                     product.setId(resultSet.getInt("id"));
                     product.setName(resultSet.getString("name"));
-                    product.setPrice(resultSet.getDouble("price"));
+                    product.setPrice(resultSet.getFloat("price"));
                     product.setQuantity(resultSet.getInt("quantity"));
                     return product;
                 }

@@ -35,7 +35,7 @@
             <tr>
                 <td>${product.id}</td>
                 <td>${product.name}</td>
-                <td><fmt:formatNumber type="number" value="${product.price}" pattern="###,###.##" /></td>
+                <td><fmt:formatNumber value="${product.price}" type="currency" currencySymbol="Rp. " /></td>
                 <td>${product.quantity}</td>
                 <td>
                     <a href="${pageContext.request.contextPath}/admin/products/edit/${product.id}" class="btn btn-sm btn-primary">Edit</a>

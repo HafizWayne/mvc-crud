@@ -3,33 +3,21 @@
 <html>
 <head>
     <title>Transactions</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Transactions</h1>
-    <a href="transactions/new">Add New Transaction</a>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Buyer</th>
-            <th>Item</th>
-            <th>Amount</th>
-            <th>Actions</th>
-        </tr>
-        <c:forEach var="transaction" items="${transactions}">
-            <tr>
-                <td>${transaction.id}</td>
-                <td>${transaction.buyer}</td>
-                <td>${transaction.item}</td>
-                <td>${transaction.amount}</td>
-                <td>
-                    <a href="transactions/edit/${transaction.id}">Edit</a>
-                    <a href="transactions/delete/${transaction.id}">Delete</a>
-                </td>
-
-            </tr>
-        </c:forEach>
-    </table>
-    <a href="${pageContext.request.contextPath}/admin/products">Manage Products</a>
-    <a href="${pageContext.request.contextPath}/admin/customers">Manage Customers</a>
+<body class="bg-gray-100">
+    <nav class="bg-gray-800 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">Admin Panel</h1>
+            <ul class="flex space-x-4">
+                <li><a href="${pageContext.request.contextPath}/admin/products">Manage Products</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/customers">Manage Customers</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mx-auto mt-8">
+        <h1 class="text-3xl font-bold mb-4">Transactions</h1>
+        <!-- Your content goes here -->
+    </div>
 </body>
 </html>
