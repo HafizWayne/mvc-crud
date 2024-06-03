@@ -113,6 +113,9 @@
             </button>
         </form>
     </div>
+      <div class="text-center pb-4">
+            <span>Sudah mempunyai akun? </span><a href="/springmvc-crud/" class="text-blue-500">Login</a>
+        </div>
 </div>
 </body>
 </html>
