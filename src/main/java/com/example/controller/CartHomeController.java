@@ -26,12 +26,20 @@ public class CartHomeController {
 
     @PostMapping("/addtocart")
     public String addToCart(@RequestParam("productId") int productId, HttpSession session, Model model) {
+        // Debug log to check if productId is received correctly
+        System.out.println("Received productId: " + productId);
+
+        // Get customer from session
+        Customer customer = (Customer) session.getAttribute("customer");
+        if (customer == null) {
+            model.addAttribute("error", "No customer found in session.");
+            return "redirect:/customer/home";
+        }
+
+        int customerId = customer.getId(); // Assuming getId() returns the customer ID
+
         // Get product from repository
         Product product = productRepository.findById(productId);
-
-        // Get customer ID from session
-        Customer customer = (Customer) session.getAttribute("customer");
-        int customerId = customer.getId(); // Assuming getId() returns the customer ID
 
         if (product != null) {
             // Get cart from session or create new cart
@@ -87,5 +95,5 @@ public class CartHomeController {
         return "redirect:/customer/home";
     }
 
-}
 
+}

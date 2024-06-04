@@ -94,16 +94,41 @@
     }
 
     function showAlert(productName) {
-        const alertElement = document.getElementById('alert');
-        alertElement.innerHTML = `
-            <div class="alert">
-                ${productName} added to cart!
-            </div>
-        `;
-        alertElement.style.display = 'block';
-        setTimeout(function() {
-            alertElement.style.display = 'none';
-        }, 5000); // Hide alert after 5 seconds
+        Swal.fire({
+            icon: 'success',
+            title: `${productName} added to cart!`,
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+
+    function addToCart(productName, productQuantity, productId) {
+        const formData = new URLSearchParams();
+        formData.append('productId', productId);
+
+        fetch('${pageContext.request.contextPath}/customer/addtocart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData.toString()
+        })
+        .then(response => {
+            if (response.ok) {
+                showAlert(productName);
+            } else {
+                throw new Error('Failed to add product to cart');
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.message,
+            });
+        });
+
+        return false; // Prevent default form submission
     }
 </script>
 
@@ -130,40 +155,36 @@
                 <!-- Icon menggunakan keranjang belanja -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M6 6h15l-1.68 7.39a2 2 0 0 1-2 1.61H8.25a2 2 0 0 1-2-1.72L4 4H2"></path>
-                     <circle cx="9" cy="21" r="1"></circle>
-                                        <circle cx="20" cy="21" r="1"></circle>
-                                    </svg>
-                                </a>
-                            </div>
-                        </form>
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                </svg>
+            </a>
+        </div>
+    </form>
 
-                        <!-- Kategori Pilihan -->
-                        <h2 class="text-2xl font-bold mb-4">Kategori Pilihan</h2>
+    <!-- Kategori Pilihan -->
+    <h2 class="text-2xl font-bold mb-4">Kategori Pilihan</h2>
 
-                        <!-- Daftar Produk -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <!-- Product Cards -->
-                            <c:forEach items="${products}" var="product">
-                                <div class="bg-white p-4 rounded-lg shadow-md">
-                                    <h2 class="text-xl font-bold mb-2"><c:out value="${product.name}" /></h2>
-                                    <p class="text-gray-700 mb-2"><fmt:formatNumber value="${product.price}" type="currency" currencySymbol="Rp. " /></p>
-                                    <p class="text-gray-500 mb-4">Quantity: <c:out value="${product.quantity}" /></p>
+    <!-- Daftar Produk -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Product Cards -->
+        <c:forEach items="${products}" var="product">
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-2"><c:out value="${product.name}" /></h2>
+                <p class="text-gray-700 mb-2"><fmt:formatNumber value="${product.price}" type="currency" currencySymbol="Rp. " /></p>
+                <p class="text-gray-500 mb-4">Quantity: <c:out value="${product.quantity}" /></p>
 
-                                    <c:choose>
-                                        <c:when test="${product.quantity > 0}">
-                                            <form action="${pageContext.request.contextPath}/customer/addtocart" method="post" onsubmit="return addToCart('${product.name}', ${product.quantity})">
-                                                <!-- Add product ID as hidden input -->
-                                                <input type="hidden" name="productId" value="${product.id}" />
-                                                <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600" onclick="showAlert('${product.name}')">Add to Cart</button>
-                                            </form>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <button type="button" class="w-full bg-gray-300 text-gray-600 py-2 rounded-lg cursor-not-allowed" disabled>Add to Cart</button>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
-                            </c:forEach>
-                        </div>
-                    </div>
-                    </body>
-                    </html>
+                <c:choose>
+                    <c:when test="${product.quantity > 0}">
+                        <button type="button" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600" onclick="addToCart('${product.name}', ${product.quantity}, ${product.id})">Add to Cart</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button type="button" class="w-full bg-gray-300 text-gray-600 py-2 rounded-lg cursor-not-allowed" disabled>Add to Cart</button>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </c:forEach>
+    </div>
+</div>
+</body>
+</html>

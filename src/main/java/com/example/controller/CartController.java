@@ -148,7 +148,6 @@ public class CartController {
         return "redirect:/customer/home";
     }
 
-
     @PostMapping("/buy")
     public String buyProduct(HttpSession session, Model model) {
         Customer customer = (Customer) session.getAttribute("customer");
@@ -178,13 +177,14 @@ public class CartController {
                 model.addAttribute("success", "Purchase successful");
                 return "customer/receipt"; // This should be the name of your receipt JSP page
             } else {
-                model.addAttribute("error", "Insufficient balance");
-                return "redirect:/customer/cart";
+                model.addAttribute("insufficientBalance", "Saldo anda kurang");
+                return "customer/cart";
             }
         } else {
             model.addAttribute("error", "Cart is empty");
             return "redirect:/customer/cart";
         }
     }
+
 }
 
