@@ -4,11 +4,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Customers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
         .sidebar {
             width: 250px;
             display: flex;
@@ -31,9 +35,9 @@
                 <h1 class="text-xl font-bold">Admin Panel</h1>
             </div>
             <ul class="mt-6">
-                     <li id="link-products" class="p-4 hover:bg-gray-700 ">
-                                            <a href="${pageContext.request.contextPath}/admin/transactions">See Transactions</a>
-                                        </li>
+                <li id="link-transactions" class="p-4 hover:bg-gray-700">
+                    <a href="${pageContext.request.contextPath}/admin/transactions">See Transactions</a>
+                </li>
                 <li id="link-products" class="p-4 hover:bg-gray-700">
                     <a href="${pageContext.request.contextPath}/admin/products">Manage Products</a>
                 </li>
@@ -71,7 +75,7 @@
                         <tr class="border-b">
                             <td class="py-2 px-4">${customer.id}</td>
                             <td class="py-2 px-4">${customer.name}</td>
-                           <td class="py-2 px-4"><fmt:formatNumber value="${customer.balance}" type="currency" currencySymbol="Rp. " /></td>
+                            <td class="py-2 px-4"><fmt:formatNumber value="${customer.balance}" type="currency" currencySymbol="Rp. " /></td>
                             <td class="py-2 px-4">
                                 <a href="${pageContext.request.contextPath}/admin/customers/edit/${customer.id}" class="bg-yellow-500 text-white px-3 py-1 rounded inline-block">Edit</a>
                                 <a href="${pageContext.request.contextPath}/admin/customers/delete/${customer.id}" class="bg-red-500 text-white px-3 py-1 rounded inline-block" onclick="return confirm('Are you sure you want to delete this customer?');">Delete</a>
@@ -84,17 +88,16 @@
     </div>
 
     <!-- JavaScript to Set Active Link -->
-  <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const path = window.location.pathname;
             if (path.includes('/admin/products')) {
                 document.getElementById('link-products').classList.add('active');
             } else if (path.includes('/admin/customers')) {
                 document.getElementById('link-customers').classList.add('active');
+            } else if (path.includes('/admin/transactions')) {
+                document.getElementById('link-transactions').classList.add('active');
             }
-        } else if (path.includes('/admin/transactions')) {
-                  document.getElementById('link-customers').classList.add('active');
-              }
         });
     </script>
 </body>

@@ -83,12 +83,12 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <a href="${pageContext.request.contextPath}/customer/home" class="flex font-semibold text-indigo-600 text-sm mt-10">
-                            <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H336c13.255 0 24-10.745 24-24s-10.745-24-24-24H134.059l51.842-51.841c9.373-9.373 9.373-24.569 0-33.941-9.373-9.372-24.569-9.372-33.941 0l-96 96c-9.372 9.373-9.372 24.569 0 33.941l96 96c9.372 9.372 24.568 9.372 33.941 0 9.373-9.372 9.373-24.568 0-33.941L134.059 296z"/></svg>
-                            Continue Shopping
-                        </a>
                     </c:otherwise>
                 </c:choose>
+                <a href="${pageContext.request.contextPath}/customer/home" class="flex font-semibold text-indigo-600 text-sm mt-10">
+                    <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H336c13.255 0 24-10.745 24-24s-10.745-24-24-24H134.059l51.842-51.841c9.373-9.373 9.373-24.569 0-33.941-9.373-9.372-24.569-9.372-33.941 0l-96 96c-9.372 9.373-9.372 24.569 0 33.941l96 96c9.372 9.372 24.568 9.372 33.941 0 9.373-9.372 9.373-24.568 0-33.941L134.059 296z"/></svg>
+                    Continue Shopping
+                </a>
             </div>
             <div id="summary" class="w-1/4 px-8 py-10">
                 <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
@@ -96,21 +96,21 @@
                     <span class="font-semibold text-sm">Total</span>
                     <span class="font-semibold text-sm"><fmt:formatNumber value="${totalCost}" type="currency" currencySymbol="Rp. " /></span>
                 </div>
-                <form action="${pageContext.request.contextPath}/customer/cart/buy" method="post">
+                <form action="${pageContext.request.contextPath}/customer/cart/buy" method="post" style="font-family: 'Poppins', sans-serif;">
                     <c:choose>
                         <c:when test="${not empty insufficientBalance}">
                             <button class="bg-red-500 font-semibold hover:bg-red-600 py-3 text-sm text-white uppercase w-full" type="button" disabled>Insufficient Balance</button>
-                </c:when>
-                                        <c:when test="${empty cart}">
-                                            <button class="bg-gray-300 font-semibold py-3 text-sm text-white uppercase w-full" type="button" disabled>Checkout</button>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full" type="submit">Checkout</button>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </body>
-                </html>
+                        </c:when>
+                        <c:when test="${empty cart}">
+                            <button class="bg-gray-300 font-semibold py-3 text-sm text-white uppercase w-full" type="button" disabled>Checkout</button>
+                        </c:when>
+                        <c:otherwise>
+                            <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full" type="submit">Checkout</button>
+                        </c:otherwise>
+                    </c:choose>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

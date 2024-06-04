@@ -7,10 +7,31 @@
     <meta charset="UTF-8">
     <title>Edit Product</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            var productName = document.getElementById('name').value;
+            if (productName.trim() === '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Product Name must be filled out!',
+                });
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
     <div class="container mt-5">
-        <h2>New Product</h2>
+        <h2>Edit Product</h2>
         <form:form method="post" action="${pageContext.request.contextPath}/admin/products" modelAttribute="product" onsubmit="return validateForm();">
             <div class="form-group">
                 <label for="name">Product Name:</label>
