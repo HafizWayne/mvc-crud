@@ -125,7 +125,7 @@
         <div class="header">
             <h2>Admin Login</h2>
         </div>
-        <form class="login-form" action="/springmvc-crud/admin/transactions" method="post" onsubmit="return validateForm()">
+        <form class="login-form" action="/springmvc-crud/admin/products" method="post" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>

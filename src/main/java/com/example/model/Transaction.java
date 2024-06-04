@@ -1,11 +1,18 @@
 package com.example.model;
 
+import java.time.LocalDateTime;
+
 public class Transaction {
     private int id;
-    private String buyer;
-    private String item;
-    private double amount;
+    private int customerId;
+    private String customerName;
+    private int productId;
+    private String productName;
+    private int quantity;
+    private double totalPrice;
+    private LocalDateTime purchaseDate;
 
+    // Getters and setters
     public int getId() {
         return id;
     }
@@ -14,29 +21,59 @@ public class Transaction {
         this.id = id;
     }
 
-    public String getBuyer() {
-        return buyer;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setBuyer(String buyer) {
-        this.buyer = buyer;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public String getItem() {
-        return item;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setItem(String item) {
-        this.item = item;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public double getAmount() {
-        return amount;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
+    public String getProductName() {
+        return productName;
+    }
 
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public LocalDateTime getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(LocalDateTime purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
 }

@@ -1,18 +1,17 @@
 package com.example.controller;
 
-import com.example.model.Cart;
-import com.example.model.Product;
-import com.example.model.Customer; // Import Customer model
-import com.example.model.Receipt;
+import com.example.model.*;
 import com.example.repository.CartRepository;
 import com.example.repository.CustomerRepository;
 import com.example.repository.ProductRepository;
+import com.example.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +27,9 @@ public class CartController {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @GetMapping
     public String viewCart(HttpSession session, Model model) {
@@ -160,31 +162,45 @@ public class CartController {
             double totalCost = cart.stream().mapToDouble(item -> item.getPrice() * item.getQuantity()).sum();
             if (customer.getBalance() >= totalCost) {
                 customer.setBalance(customer.getBalance() - totalCost);
+                LocalDateTime now = LocalDateTime.now();
+
                 for (Cart cartItem : cart) {
                     Product product = productRepository.findById(cartItem.getProductId());
                     if (product != null && product.getQuantity() >= cartItem.getQuantity()) {
                         product.setQuantity(product.getQuantity() - cartItem.getQuantity());
                         productRepository.update(product);
+
+                        // Save transaction
+                        Transaction transaction = new Transaction();
+                        transaction.setCustomerId(customer.getId());
+                        transaction.setCustomerName(customer.getName()); // Assuming Customer has getName() method
+                        transaction.setProductId(cartItem.getProductId());
+                        transaction.setProductName(product.getName());
+                        transaction.setQuantity(cartItem.getQuantity());
+                        transaction.setTotalPrice(cartItem.getPrice() * cartItem.getQuantity());
+                        transaction.setPurchaseDate(now);
+                        transactionRepository.save(transaction);
                     }
                 }
+
                 cartRepository.deleteByCustomerId(customer.getId());
                 session.removeAttribute("cart");
                 customerRepository.update(customer);
 
-                // Create receipt
                 Receipt receipt = new Receipt(customer, cart, totalCost);
                 model.addAttribute("receipt", receipt);
                 model.addAttribute("success", "Purchase successful");
-                return "customer/receipt"; // This should be the name of your receipt JSP page
+                return "customer/receipt";
             } else {
-                model.addAttribute("insufficientBalance", "Saldo anda kurang");
-                return "customer/cart";
+                model.addAttribute("error", "Insufficient balance");
+                return "redirect:/customer/cart";
             }
         } else {
             model.addAttribute("error", "Cart is empty");
             return "redirect:/customer/cart";
         }
     }
+
 
 }
 

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/admin/products")
 public class ProductController {
@@ -49,5 +51,11 @@ public class ProductController {
     public String deleteProduct(@PathVariable int id) {
         productRepository.delete(id);
         return "redirect:/admin/products";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        // Invalidate session to perform logout
+        return "redirect:/"; // Redirect to home page or login page
     }
 }
