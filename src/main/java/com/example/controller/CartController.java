@@ -187,20 +187,20 @@ public class CartController {
                 session.removeAttribute("cart");
                 customerRepository.update(customer);
 
+                // Create receipt
                 Receipt receipt = new Receipt(customer, cart, totalCost);
                 model.addAttribute("receipt", receipt);
                 model.addAttribute("success", "Purchase successful");
-                return "customer/receipt";
+                return "customer/receipt"; // This should be the name of your receipt JSP page
             } else {
-                model.addAttribute("error", "Insufficient balance");
-                return "redirect:/customer/cart";
+                model.addAttribute("insufficientBalance", "Saldo anda kurang");
+                return "customer/cart";
             }
         } else {
             model.addAttribute("error", "Cart is empty");
             return "redirect:/customer/cart";
         }
     }
-
 
 }
 
