@@ -69,10 +69,12 @@
     <div class="container mx-auto px-4 py-2 flex justify-between items-center">
         <a href="#" class="text-xl font-bold text-blue-500">Mobile Shop</a>
         <span class="text-gray-700 px-3">Welcome, <c:out value="${customer.name}" /></span>
-        <span class="text-gray-700 px-3">Balance: Rp. <c:out value="${customer.balance}" /></span>
+        <span class="text-gray-700 px-3">Balance:
+            <fmt:formatNumber value="${customer.balance}" type="currency" currencySymbol="Rp " groupingUsed="true" />
+        </span>
         <a href="${pageContext.request.contextPath}/customer/addbalance" class="text-gray-700 hover:text-blue-500 px-3">Add Balance</a>
         <a href="#" class="text-gray-700 hover:text-blue-500 px-3">Home</a>
-        <a href="#" class="text-gray-700 hover:text-blue-500 px-3">Products</a>
+        <a href="${pageContext.request.contextPath}/customer/transactions" class="text-gray-700 hover:text-blue-500 px-3">Transactions</a>
         <div class="relative inline-block text-left">
             <a href="#" class="text-gray-700 hover:text-blue-500 px-3" onclick="toggleDropdown()">Profile</a>
             <!-- Dropdown Menu -->

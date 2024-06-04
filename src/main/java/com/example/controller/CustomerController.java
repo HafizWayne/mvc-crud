@@ -36,6 +36,29 @@ public class CustomerController {
         return "admin/customer";
     }
 
+    @GetMapping("/edit/{id}")
+    public String editCustomer(@PathVariable("id") int id, Model model) {
+        Customer customer = customerRepository.findById(id);
+        if (customer == null) {
+            return "redirect:/admin/customers";
+        }
+        model.addAttribute("customer", customer);
+        return "admin/edit_customer";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateCustomer(@PathVariable int id, @ModelAttribute Customer customer) {
+        customer.setId(id); // Set ID dari path variable ke objek Customer
+        customerRepository.update(customer);
+        return "redirect:/admin/customers";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteCustomer(@PathVariable("id") int id) {
+        customerRepository.delete(id);
+        return "redirect:/admin/customers";
+    }
+
     @PostMapping("/buy")
     public String buyProduct(@RequestParam("customerId") int customerId,
                              @RequestParam("productId") int productId,
