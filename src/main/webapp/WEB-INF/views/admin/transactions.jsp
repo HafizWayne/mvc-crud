@@ -44,10 +44,10 @@
                 <h1 class="text-xl font-bold">Admin Panel</h1>
             </div>
             <ul class="mt-6">
-                <li id="link-transactions" class="p-4 hover:bg-gray-700">
+                <li id="link-transactions" class="p-4 hover:bg-gray-700 active">
                     <a href="${pageContext.request.contextPath}/admin/transactions">See Transactions</a>
                 </li>
-                <li id="link-products" class="p-4 hover:bg-gray-700 active">
+                <li id="link-products" class="p-4 hover:bg-gray-700 ">
                     <a href="${pageContext.request.contextPath}/admin/products">Manage Products</a>
                 </li>
                 <li id="link-customers" class="p-4 hover:bg-gray-700">

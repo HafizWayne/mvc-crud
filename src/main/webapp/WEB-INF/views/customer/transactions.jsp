@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +28,7 @@
                             <td class="py-4 px-6 text-sm text-gray-900">${transaction.id}</td>
                             <td class="py-4 px-6 text-sm text-gray-900">${transaction.productName}</td>
                             <td class="py-4 px-6 text-sm text-gray-900">${transaction.quantity}</td>
-                            <td class="py-4 px-6 text-sm text-gray-900">${transaction.totalPrice}</td>
+                            <td class="py-4 px-6 text-sm text-gray-900"><fmt:formatNumber value="${transaction.totalPrice}" type="currency" currencySymbol="Rp. "/></td>
                             <td class="py-4 px-6 text-sm text-gray-900">${transaction.purchaseDate}</td>
                         </tr>
                     </c:forEach>

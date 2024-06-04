@@ -1,9 +1,9 @@
 package com.example.controller;
 
 import com.example.model.Customer;
+import com.example.model.Product;
 import com.example.repository.CustomerRepository;
 import com.example.repository.ProductRepository;
-import com.example.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,16 +29,22 @@ public class HomeController {
     }
 
     @GetMapping
-    public String home(Model model, HttpSession session) {
+    public String home(Model model, HttpSession session, @RequestParam(required = false) String search) {
         Customer customer = (Customer) session.getAttribute("customer");
         if (customer != null) {
             model.addAttribute("customer", customer);
         }
-        List<Product> products = productRepository.findAll();
+
+        List<Product> products;
+        if (search != null && !search.isEmpty()) {
+            products = productRepository.findByNameContaining(search);
+        } else {
+            products = productRepository.findAll();
+        }
+
         model.addAttribute("products", products);
         return "customer/home";
     }
-
     @GetMapping("/addbalance")
     public String showAddBalanceForm(Model model) {
         // Add any necessary data to the model
